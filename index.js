@@ -1,24 +1,12 @@
-var Impress = require('./Impress/Impress')
+var Impress = require('./Impress/Impress');
 
-Impress.get('/one/:id', function (req, res) {
-    res.writeHead(200, { 'Content-Type': 'application/json' });
-    res.write(JSON.stringify({
-        method:"get", 
-        message:"successfully completed. "
-    }))
-    res.end('')
-})
+Impress.post('/one/:id/comment/:comments', function(req, res) {
+  res.send(200, {
+    body: req.body,
+    params: req.params,
+  });
+});
 
-Impress.post('/one/:id/comment/:comments', function (req, res) {
-    res.writeHead(200, { 'Content-Type': 'application/json' });
-    res.write(JSON.stringify({
-        method:"post", 
-        message:"successfully completed. "
-    }))
-    res.end('')
-})
-
-Impress.listen(9000, function(message){
-    console.log(message);
-    
-})
+Impress.listen(9000, function(message) {
+  console.log(message);
+});
