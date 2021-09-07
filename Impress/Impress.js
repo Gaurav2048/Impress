@@ -18,13 +18,11 @@ var server = http.createServer(function (req, res) {   //create web server
                 }
                 const response = Response(res)
                 if(routes[index].hasMiddleWare){
-                    
+
                     Middlewares(request, response, middlewares[index], function(newReq, newRes){
                         callbacks[index](newReq, newRes);
                     })
-                }else{
-                    console.log('with out middleware');
-                    
+                }else{                    
                     callbacks[index](request, response);    
                 }
                
@@ -47,14 +45,14 @@ const  get = (...args) => {
         callback = args[args.length-1]
         for(let i = 1; i<args.length-1; i++){
             middleware.push(args[i])
-        }
-        middlewares.push(middleware);        
+        }        
     }
     routes.push({
         route, 
         hasMiddleWare : middleware.length !== 0 , 
         method:'GET'
     })
+    middlewares.push(middleware);
     callbacks.push(callback)
 }
 
@@ -107,7 +105,7 @@ const  put = (...args) => {
 
 
 const listen = (port, cb) => {
-    const run = server.listen(8000)
+    const run = server.listen(port, cb)
 }
 
 
